@@ -14,13 +14,7 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 @EnableMongoAuditing
 @ConfigurationPropertiesScan("com.movies.configuration.properties")
 public class MoviesApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(MoviesApplication.class, args);
-    }
-
-    @Bean
-    public Faker faker() {
-        return new Faker();
     }
 }

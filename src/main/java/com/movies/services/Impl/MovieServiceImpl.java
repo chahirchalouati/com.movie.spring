@@ -32,7 +32,6 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
     private final MovieHelper movieHelper;
-    private final Faker faker;
     private final StorageService storageService;
 
     private static void movieNotFound() {
@@ -105,47 +104,4 @@ public class MovieServiceImpl implements MovieService {
             return this.movieRepository.save(movie);
         };
     }
-//    @PostConstruct
-//    public void initData() {
-//        if (this.movieRepository.count() <= 1000L) {
-//            for (int i = 0; i < 1000; i++) {
-//
-//                final Set<Person> actors = new HashSet<>();
-//                for (int j = 0; j < RandomUtils.nextInt(5, 100); j++) {
-//                    actors.add(Person.builder().firstName(faker.name().firstName()).lastName(faker.name().lastName()).build());
-//                }
-//
-//                final Set<User> users = new HashSet<>();
-//                for (int j = 0; j < RandomUtils.nextInt(5, 100); j++) {
-//                    User user = new User()
-//                            .setUserName(faker.name().username())
-//                            .setFirstName(faker.name().firstName())
-//                            .setUserName(faker.name().lastName());
-//                    users.add(user);
-//                }
-//
-//                final Set<Like> likes = new HashSet<>();
-//                for (int j = 0; j < RandomUtils.nextInt(5, 100); j++) {
-//                    likes.add(Like.builder().isLiked(RandomUtils.nextBoolean())
-//                            .likeCreator(users.stream().findFirst().orElse(null)).build());
-//                }
-//
-//                final Set<Comment> comments = new HashSet<>();
-//                for (int j = 0; j < RandomUtils.nextInt(5, 100); j++) {
-//                    comments.add(Comment.builder().comment(faker.lorem().paragraph(RandomUtils.nextInt(5, 100)))
-//                            .commentCreator(users.stream().findFirst().orElse(null)).build());
-//                }
-//
-//                Movie movie = Movie.builder()
-//                        .title(faker.book().title())
-//                        .description(faker.lorem().paragraph(RandomUtils.nextInt(5, 100)))
-//                        .thumbnails(faker.avatar().image())
-//                        .downloadUrl(faker.avatar().image())
-//                        .likes(likes)
-//                        .actors(actors)
-//                        .comments(comments).build();
-//                this.movieRepository.save(movie);
-//            }
-//        }
-//    }
 }
