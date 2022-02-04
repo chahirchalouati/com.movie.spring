@@ -16,6 +16,11 @@ spring:
       username: root
       database: movies
       port: 27017
+    web:
+      pageable:
+        max-page-size: 100
+
+
   devtools:
     add-properties: false
   servlet:

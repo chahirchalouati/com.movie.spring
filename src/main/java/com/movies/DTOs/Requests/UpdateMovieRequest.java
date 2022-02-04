@@ -20,7 +20,7 @@ public class UpdateMovieRequest {
     @NotBlank(message = "description can't be blank")
     private String description;
     private String thumbnails;
-    private String downloadUri;
+    private String downloadUrl;
 
     private Set<Person> actors;
     private Set<Like> likes;

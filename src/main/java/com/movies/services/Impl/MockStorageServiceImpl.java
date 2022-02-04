@@ -84,7 +84,6 @@ public class MockStorageServiceImpl implements StorageService {
     }
 
     private File.FileType resolveFileType(MultipartFile file) {
-        if (file.getContentType().trim().toLowerCase(Locale.ROOT).startsWith("audio")) return File.FileType.AUDIO;
         if (file.getContentType().trim().toLowerCase(Locale.ROOT).startsWith("image")) return File.FileType.IMAGE;
         if (file.getContentType().trim().toLowerCase(Locale.ROOT).startsWith("video")) return File.FileType.VIDEO;
         return File.FileType.OTHER;

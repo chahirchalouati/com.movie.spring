@@ -18,13 +18,17 @@ public abstract class MovieMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "title", target = "title"),
-            // todo add logic to fill downloadUri and thumbnails from fileStorage service
+            @Mapping(source = "thumbnails", target = "thumbnails"),
+            @Mapping(source = "actors", target = "actors"),
+            @Mapping(source = "comments", target = "comments"),
+            @Mapping(source = "likes", target = "likes"),
     })
     public abstract MovieResponse mapToMovieResponse(Movie movie);
 
     @Mappings({
             @Mapping(source = "title", target = "title"),
             @Mapping(source = "description", target = "description"),
+            @Mapping(ignore = true, target = "thumbnails"),
     })
     public abstract Movie mapToMovie(CreateMovieRequest createMovieRequest);
 

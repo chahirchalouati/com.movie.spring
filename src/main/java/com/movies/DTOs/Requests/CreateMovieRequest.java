@@ -1,7 +1,6 @@
 package com.movies.DTOs.Requests;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,4 +21,6 @@ public class CreateMovieRequest {
     private String description;
     @NotNull(message = "file can't be null")
     private MultipartFile file;
+    @NotNull(message = "thumbnails can't be null")
+    private MultipartFile thumbnails;
 }

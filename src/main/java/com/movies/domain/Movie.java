@@ -31,12 +31,15 @@ public class Movie {
     @NotBlank(message = "title can't be blank")
     @Indexed
     private String title;
+    @Indexed
+    @NotBlank(message = "code can't be blank")
+    private Integer code;
     @NotBlank(message = "description can't be blank")
     private String description;
     private String thumbnails;
     @JsonIgnore
     private String path;
-    private String downloadUri;
+    private String downloadUrl;
 
     private Set<Person> actors = new HashSet<>();
     private Set<Like> likes = new HashSet<>();
