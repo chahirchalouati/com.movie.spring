@@ -1,6 +1,5 @@
 package com.movies.services.Impl;
 
-import com.github.javafaker.Faker;
 import com.movies.DTOs.Requests.CreateUserRequest;
 import com.movies.DTOs.Requests.UpdateUserRequest;
 import com.movies.DTOs.Responses.UserResponse;
@@ -30,7 +29,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
-    private final Faker faker;
 
     private static void userNotFound() {
         throw new EntityNotFoundException("user not found");

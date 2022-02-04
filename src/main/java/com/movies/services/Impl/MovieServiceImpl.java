@@ -1,6 +1,5 @@
 package com.movies.services.Impl;
 
-import com.github.javafaker.Faker;
 import com.movies.DTOs.Requests.CreateMovieRequest;
 import com.movies.DTOs.Requests.UpdateMovieRequest;
 import com.movies.DTOs.Responses.MovieResponse;

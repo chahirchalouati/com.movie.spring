@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author Chahir Chalouati
  */
@@ -28,7 +30,7 @@ public class UserController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> update(UpdateUserRequest updateUserRequest) {
+    public ResponseEntity<?> update(@Valid UpdateUserRequest updateUserRequest) {
         return new ResponseEntity<>(userService.update(updateUserRequest), HttpStatus.OK);
     }
 
