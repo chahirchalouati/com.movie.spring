@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter(AccessLevel.NONE)
 public class File {
     public static final String COLLECTION_NAME = "files";
-    public enum FileType {VIDEO, AUDIO, OTHER, IMAGE}
+    public enum FileType {VIDEO, OTHER, IMAGE}
     private String id;
     private String name;
     private String path;
