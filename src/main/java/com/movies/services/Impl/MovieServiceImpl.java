@@ -4,25 +4,22 @@ import com.github.javafaker.Faker;
 import com.movies.DTOs.Requests.CreateMovieRequest;
 import com.movies.DTOs.Requests.UpdateMovieRequest;
 import com.movies.DTOs.Responses.MovieResponse;
-import com.movies.domain.*;
+import com.movies.domain.File;
+import com.movies.domain.Movie;
 import com.movies.exceptions.EntityNotFoundException;
 import com.movies.helpers.MovieHelper;
 import com.movies.mappers.MovieMapper;
 import com.movies.repositories.MovieRepository;
-import com.movies.repositories.RoleRepository;
 import com.movies.services.MovieService;
 import com.movies.services.StorageService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.RandomUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -47,8 +44,8 @@ public class MovieServiceImpl implements MovieService {
         final Movie movie = this.movieMapper.mapToMovie(createMovieRequest);
         final File file = this.storageService.store(createMovieRequest.getFile());
         final File thumbnails = this.storageService.store(createMovieRequest.getThumbnails());
-        final Integer code = this.movieHelper.createCode(); 
-        
+        final Integer code = this.movieHelper.createCode();
+
         movie.setThumbnails(thumbnails.getDownloadUrl());
         movie.setCode(code);
         movie.setDownloadUrl(file.getDownloadUrl());
@@ -65,10 +62,10 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieResponse update(UpdateMovieRequest updateMovieRequest) {
-        final Movie movie = this.movieMapper.mapToMovie(updateMovieRequest);
-        // todo validate and save movie
-        final Movie storedMovie = movieRepository.save(movie);
-        return this.movieMapper.mapToMovieResponse(storedMovie);
+        return this.movieRepository.findById(updateMovieRequest.getId()).map(handleMovieUpdate(updateMovieRequest))
+                .map(this.movieMapper::mapToMovieResponse)
+                .orElseThrow(() -> new EntityNotFoundException("movie not found"));
+
     }
 
     @Override
@@ -93,6 +90,21 @@ public class MovieServiceImpl implements MovieService {
         return new PageImpl<>(movieResponses, pageable, movieResponses.size());
     }
 
+    private Function<Movie, Movie> handleMovieUpdate(UpdateMovieRequest updateMovieRequest) {
+        return movie -> {
+            final File file = this.storageService.store(updateMovieRequest.getFile());
+            final File thumbnails = this.storageService.store(updateMovieRequest.getThumbnails());
+            movie.setThumbnails(thumbnails.getDownloadUrl());
+            movie.setDownloadUrl(file.getDownloadUrl());
+            movie.setPath(file.getPath());
+            movie.setDescription(updateMovieRequest.getDescription());
+            movie.setTitle(updateMovieRequest.getTitle());
+            movie.setActors(updateMovieRequest.getActors());
+            movie.setLikes(updateMovieRequest.getLikes());
+            movie.setComments(updateMovieRequest.getComments());
+            return this.movieRepository.save(movie);
+        };
+    }
 //    @PostConstruct
 //    public void initData() {
 //        if (this.movieRepository.count() <= 1000L) {

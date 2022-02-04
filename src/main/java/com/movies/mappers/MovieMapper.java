@@ -18,6 +18,7 @@ public abstract class MovieMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "title", target = "title"),
+            @Mapping(source = "description", target = "description"),
             @Mapping(source = "thumbnails", target = "thumbnails"),
             @Mapping(source = "actors", target = "actors"),
             @Mapping(source = "comments", target = "comments"),
@@ -35,7 +36,9 @@ public abstract class MovieMapper {
     @Mappings({
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "title", target = "title"),
-            @Mapping(source = "thumbnails", target = "thumbnails"),
+            @Mapping(source = "code", target = "code"),
+            @Mapping(source = "description", target = "description"),
+            @Mapping(ignore = true, target = "thumbnails"),
             @Mapping(source = "actors", target = "actors"),
             @Mapping(source = "comments", target = "comments"),
             @Mapping(source = "likes", target = "likes"),
