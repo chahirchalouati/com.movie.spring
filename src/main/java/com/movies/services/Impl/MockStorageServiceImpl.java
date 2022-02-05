@@ -1,27 +1,38 @@
 package com.movies.services.Impl;
 
 import com.movies.domain.File;
+import com.movies.exceptions.EntityNotFoundException;
 import com.movies.exceptions.FileStoreException;
 import com.movies.repositories.FileRepository;
 import com.movies.services.StorageService;
+import com.movies.utils.FileStorageUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.CacheControl;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Chahir Chalouati
  */
@@ -54,6 +65,32 @@ public class MockStorageServiceImpl implements StorageService {
     @Override
     public String generateFileName(String extension) {
         return UUID.randomUUID().toString().concat(".").concat(extension);
+    }
+
+    @Override
+    public ResponseEntity<?> getFile(String filename, HttpServletRequest request) {
+        final File file = fileRepository.findByName(filename).orElseThrow(() -> new EntityNotFoundException("not found"));
+        final Path path = FileStorageUtils.getPath(file.getPath());
+        final Resource resource = FileStorageUtils.getResource(path);
+        return Objects.nonNull(resource) && resource.exists() ? this.downLoadFile(request, resource) : ResponseEntity.notFound().build();
+
+    }
+
+    public ResponseEntity<Resource> downLoadFile(HttpServletRequest request, Resource resource) {
+        final String contentType = FileStorageUtils.getContentType(request, resource);
+        final String contentLength = FileStorageUtils.getContentLength(resource);
+        final CacheControl cacheControl = CacheControl.maxAge(1, TimeUnit.DAYS).cachePrivate().proxyRevalidate();
+        final HttpHeaders httpHeaders = new HttpHeaders();
+
+        httpHeaders.put(HttpHeaders.CONTENT_DISPOSITION, List.of("attachment; filename=\"" + resource.getFilename() + "\""));
+        if (Objects.nonNull(contentLength)) {
+            httpHeaders.put(HttpHeaders.CONTENT_LENGTH, List.of(contentLength));
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .cacheControl(cacheControl)
+                .headers(httpHeaders)
+                .body(resource);
     }
 
     @Override

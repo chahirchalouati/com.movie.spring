@@ -11,10 +11,12 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -56,6 +58,11 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public String generateFileName(String extension) {
         return UUID.randomUUID().toString().concat(POINT).concat(extension);
+    }
+
+    @Override
+    public ResponseEntity<?> getFile(String filename, HttpServletRequest request) {
+        return null;
     }
 
     @Override
