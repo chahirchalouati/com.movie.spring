@@ -18,7 +18,7 @@ public class FilesRestController {
     private final StorageService storageService;
 
     @SneakyThrows
-    @GetMapping(value = "/{filename}")
+    @GetMapping(value = "/{filename:.+}")
     public ResponseEntity<?> files(@PathVariable(name = "filename") String filename,  HttpServletRequest request) {
         return storageService.getFile(filename, request);
     }
