@@ -47,6 +47,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new ErrorResponse(exception.getLocalizedMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler({FileFormatNotAcceptedException.class})
+    public ResponseEntity<?> badRequest(FileFormatNotAcceptedException exception) {
+        return new ResponseEntity<>(new ErrorResponse(exception.getLocalizedMessage()), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler({SignatureException.class, MalformedJwtException.class, ExpiredJwtException.class, UnsupportedJwtException.class})
     public ResponseEntity<String> unauthorizedResponse() {
         return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

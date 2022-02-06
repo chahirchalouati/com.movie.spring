@@ -7,6 +7,7 @@ import com.movies.repositories.FileRepository;
 import com.movies.services.StorageService;
 import com.movies.utils.FileStorageUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.NestedExceptionUtils;
@@ -43,13 +44,12 @@ public class MockStorageServiceImpl implements StorageService {
 
     @Value("${file.storage.dir}")
     private String dir;
-    private final FileRepository fileRepository;
-    private final ResourceLoader resourceLoader;
-
-    public MockStorageServiceImpl(FileRepository fileRepository, ResourceLoader resourceLoader) {
-        this.fileRepository = fileRepository;
-        this.resourceLoader = resourceLoader;
-    }
+    @Autowired
+    private FileRepository fileRepository;
+    @Autowired
+    private ResourceLoader resourceLoader;
+    @Autowired
+    private FileStorageUtils fileStorageUtils;
 
     @PostConstruct
     @Override
@@ -70,15 +70,15 @@ public class MockStorageServiceImpl implements StorageService {
     @Override
     public ResponseEntity<?> getFile(String filename, HttpServletRequest request) {
         final File file = fileRepository.findByName(filename).orElseThrow(() -> new EntityNotFoundException("not found"));
-        final Path path = FileStorageUtils.getPath(file.getPath());
-        final Resource resource = FileStorageUtils.getResource(path);
+        final Path path = fileStorageUtils.getPath(file.getPath());
+        final Resource resource = fileStorageUtils.getResource(path);
         return Objects.nonNull(resource) && resource.exists() ? this.downLoadFile(request, resource) : ResponseEntity.notFound().build();
 
     }
 
     public ResponseEntity<Resource> downLoadFile(HttpServletRequest request, Resource resource) {
-        final String contentType = FileStorageUtils.getContentType(request, resource);
-        final String contentLength = FileStorageUtils.getContentLength(resource);
+        final String contentType = fileStorageUtils.getContentType(request, resource);
+        final String contentLength = fileStorageUtils.getContentLength(resource);
         final CacheControl cacheControl = CacheControl.maxAge(1, TimeUnit.DAYS).cachePrivate().proxyRevalidate();
         final HttpHeaders httpHeaders = new HttpHeaders();
 
@@ -101,8 +101,13 @@ public class MockStorageServiceImpl implements StorageService {
     @Override
     public File store(MultipartFile file) {
         try {
-            String[] strings = file.getOriginalFilename().split("\\.");
-            final String fileName = this.generateFileName(strings[strings.length - 1]);
+
+
+            final String originalFilename = Objects.requireNonNull(file.getOriginalFilename());
+            final String fileName = fileStorageUtils
+                    .getExtension(originalFilename)
+                    .then()
+                    .getFileName();
             final InputStream inputStream = file.getInputStream();
             final Path path = this.getPath(dir.concat("/").concat(fileName));
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);

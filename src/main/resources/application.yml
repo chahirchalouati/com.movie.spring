@@ -32,7 +32,7 @@ security:
 file:
   storage:
     dir: ./store
-
+  extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD
 
 ---
 spring:
@@ -62,6 +62,7 @@ security:
 file:
   storage:
     dir: ./test-store
+  extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD
 ---
 spring:
   profiles: prod
@@ -90,3 +91,4 @@ security:
 file:
   storage:
     dir: ./prod-store
+  extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD

@@ -1,65 +1,63 @@
 package com.movies.utils;
 
+import com.movies.exceptions.FileFormatNotAcceptedException;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Component
 public class FileStorageUtils {
 
-    private static final Map<String, ImageDimension> dimensionMap = new HashMap<>();
+    @Value("${file.extensions}")
+    private List<String> extensions;
+    private final Map<String, ImageDimension> dimensionMap = new HashMap<>();
+    private String extension = ".ext";
 
-    public static Map<String, ImageDimension> getDimensionMap() {
-        dimensionMap.put("xl", ImageDimension.builder().width(1022).height(620).build());
-        dimensionMap.put("lg", ImageDimension.builder().width(740).height(400).build());
-        dimensionMap.put("md", ImageDimension.builder().width(165).height(165).build());
-        dimensionMap.put("sm", ImageDimension.builder().width(150).height(150).build());
-        dimensionMap.put("xs", ImageDimension.builder().width(80).height(80).build());
-        return dimensionMap;
+
+    public String getFileName() {
+        return UUID.randomUUID().toString().concat(".").concat(this.extension);
     }
 
-    public static String generateRandomName() {
-        return UUID.randomUUID().toString();
-    }
-
-    public static String buildFileName(String extension) {
-        return generateRandomName().concat(".").concat(extension);
-    }
-
-    public static String buildFileName(String prefix, String extension) {
-        return generateRandomName().concat(prefix).concat(".").concat(extension);
-    }
-
-    public static Path buildPath(String baseDirectory, String fileName) {
-        return Paths.get(baseDirectory.concat("/").concat(fileName)).toAbsolutePath().normalize();
-    }
-
-    public static Path getPath(String storeLocation) {
+    public Path getPath(String storeLocation) {
         return Paths.get(storeLocation).toAbsolutePath().normalize();
     }
 
-    public static String buildFileName(String extension, String... fields) {
-        final String reduce = Arrays.stream(fields).map(s -> s.concat("_")).reduce(String::concat).orElse("");
-        return generateRandomName().concat(reduce).concat(".").concat(extension);
+    public FileStorageUtils getExtension(@NotNull String originalFilename) {
+        String[] strings = originalFilename.split("\\.");
+        final String extension = strings[strings.length - 1];
+        validateExtension(extension);
+        return this;
     }
 
-    public static String getExtension(String originalFilename) {
-        return Objects.requireNonNull(originalFilename).substring(originalFilename.length() - 3);
+    public FileStorageUtils then() {
+        return this;
     }
 
-    public static String getContentLength(Resource resource) {
+    public String getContentLength(Resource resource) {
         try {
             return String.valueOf(resource.contentLength());
         } catch (IOException e) {
@@ -68,7 +66,7 @@ public class FileStorageUtils {
         }
     }
 
-    public static String getContentType(HttpServletRequest request, Resource resource) {
+    public String getContentType(HttpServletRequest request, Resource resource) {
         try {
             return request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
@@ -77,12 +75,7 @@ public class FileStorageUtils {
         }
     }
 
-    public static void createDirectory(String baseDirectory) throws IOException {
-        if (!Files.exists(Paths.get(baseDirectory).toAbsolutePath().normalize()))
-            Files.createDirectories(Paths.get(baseDirectory).toAbsolutePath().normalize());
-    }
-
-    public static Resource getResource(Path path) {
+    public Resource getResource(Path path) {
         try {
             return new UrlResource(path.toUri());
         } catch (MalformedURLException e) {
@@ -90,6 +83,17 @@ public class FileStorageUtils {
             return null;
         }
     }
+
+    public void validateExtension(String extension) {
+        final boolean contains = extensions.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList()).contains(extension);
+        if (!contains) {
+            throw new FileFormatNotAcceptedException("file extension not accepted");
+        }
+    }
+
 
     @Builder
     @Data
