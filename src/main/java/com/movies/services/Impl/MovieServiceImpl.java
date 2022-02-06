@@ -80,12 +80,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Page<MovieResponse> findAll(Pageable pageable) {
-        final List<MovieResponse> movieResponses = this.movieRepository.findAll(pageable)
+        final Page<Movie> page = this.movieRepository.findAll(pageable);
+        final List<MovieResponse> movieResponses = page
                 .getContent()
                 .stream()
                 .map(movieMapper::mapToMovieResponse)
                 .collect(Collectors.toList());
-        return new PageImpl<>(movieResponses, pageable, movieResponses.size());
+        return new PageImpl<>(movieResponses, pageable, page.getTotalElements());
     }
 
     private Function<Movie, Movie> handleMovieUpdate(UpdateMovieRequest updateMovieRequest) {

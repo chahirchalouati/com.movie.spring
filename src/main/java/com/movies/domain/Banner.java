@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Setter(AccessLevel.NONE)
+@Document(collection = Banner.COLLECTION_NAME)
 public class Banner {
+    public static final String COLLECTION_NAME = "banners";
     @Id
     private String id;
     @Indexed(name = "banner_name")

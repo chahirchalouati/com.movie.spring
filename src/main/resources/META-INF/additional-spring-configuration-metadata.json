@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "security.secret",
+      "type": "java.lang.String",
+      "description": "Description for security.secret."
+    },
+    {
+      "name": "security.expirationTime",
+      "type": "java.lang.String",
+      "description": "Description for security.expirationTime."
+    },
+    {
+      "name": "security.tokenPrefix",
+      "type": "java.lang.String",
+      "description": "Description for security.tokenPrefix."
+    },
+    {
+      "name": "security.authorizationHeader",
+      "type": "java.lang.String",
+      "description": "Description for security.authorizationHeader."
+    }
+  ] }

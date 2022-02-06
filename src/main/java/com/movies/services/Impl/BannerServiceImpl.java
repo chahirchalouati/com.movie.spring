@@ -32,7 +32,7 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public List<Banner> getBanners(int limit) {
         Query query = new Query();
-        query.with(Sort.by("createdAt").descending()).limit(limit);
+        query.with(Sort.by(Sort.Direction.DESC, "createdAt")).limit(limit);
         return this.mongoTemplate.find(query, Banner.class);
 
     }

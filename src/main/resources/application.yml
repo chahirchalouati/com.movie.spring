@@ -19,8 +19,6 @@ spring:
     web:
       pageable:
         max-page-size: 100
-
-
   devtools:
     add-properties: false
   servlet:
@@ -48,14 +46,22 @@ spring:
       username: root
       database: movies
       port: 27017
+    web:
+      pageable:
+        max-page-size: 100
+  devtools:
+    add-properties: false
+  servlet:
+    multipart:
+      max-file-size: 4GB
 security:
   secret: secret
-  expirationTime: 1000 * 60 * 60
+  expirationTime: 43200000
   tokenPrefix: Bearer
   authorizationHeader: Authorization
 file:
   storage:
-    dir: ./store
+    dir: ./test-store
 ---
 spring:
   profiles: prod
@@ -68,11 +74,19 @@ spring:
       username: root
       database: movies
       port: 27017
+    web:
+      pageable:
+        max-page-size: 100
+  devtools:
+    add-properties: false
+  servlet:
+    multipart:
+      max-file-size: 4GB
 security:
   secret: secret
-  expirationTime: 1000 * 60 * 60
+  expirationTime: 43200000
   tokenPrefix: Bearer
   authorizationHeader: Authorization
 file:
   storage:
-    dir: ./store
+    dir: ./prod-store
