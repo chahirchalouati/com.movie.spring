@@ -24,6 +24,11 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
 
+    /**
+     * @implNote nobody has the right to delete any profile
+     * so  deleting logic should not be implemented
+     */
+
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -32,6 +37,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional(readOnly = true)
     @Override
     public UserResponse getOne(String userId) {
+        // TODO: 2/8/2022 add a check to validate that only the current logged user can get back information about his profile
         final Profile profile = this.profileRepository.findByUserId(userId).orElseThrow(() -> new EntityNotFoundException(String.format("unable to find profile with userId: %s", userId)));
         final User user = this.userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.format("unable to find user with userId: %s", userId)));
         return this.userMapper.mapToUserResponse(user, profile);
@@ -40,6 +46,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional
     @Override
     public UserResponse add(CreateProfileRequest createProfileRequest) {
+        // TODO: 2/8/2022 add a check to validate that only the current logged user can create his own profile
         this.profileRepository.findByUserId(createProfileRequest.getUserId()).ifPresent(profile -> {
             throw new EntityAlreadyExistsException("profile exists for user wih id : " + createProfileRequest.getUserId());
         });
@@ -55,6 +62,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Transactional
     @Override
     public UserResponse update(UpdateProfileRequest updateProfileRequest) {
+        // TODO: 2/8/2022 add a check to validate that only the current logged user can update his own profile
         final Profile profile = this.profileRepository.findById(updateProfileRequest.getId()).orElseThrow(() -> new EntityNotFoundException(String.format("unable to find profile with userId: %s", updateProfileRequest.getId())));
         final File storedFile = this.storageService.store(updateProfileRequest.getAvatar());
         profile.setAvatar(storedFile.getDownloadUrl());
