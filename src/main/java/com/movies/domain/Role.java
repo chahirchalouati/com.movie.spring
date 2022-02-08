@@ -1,6 +1,7 @@
 package com.movies.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+
 /**
  * @author Chahir Chalouati
  */
@@ -23,8 +25,10 @@ public class Role {
     private String id;
     @Indexed
     private String role;
+
+    @JsonIgnore
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS", shape = JsonFormat.Shape.STRING)
     private LocalDateTime createdAt;
 
     public Role setRole(String role) {

@@ -33,6 +33,7 @@ public class ProfileServiceImpl implements ProfileService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final StorageService storageService;
+    private static final String DEFAULT_AVATAR = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
     @Transactional(readOnly = true)
     @Override
@@ -69,5 +70,13 @@ public class ProfileServiceImpl implements ProfileService {
         final Profile storedProfile = this.profileRepository.save(profile);
         final User user = this.userRepository.findById(profile.getUserId()).orElseThrow(() -> new EntityNotFoundException(String.format("unable to find user with userId: %s", profile.getUserId())));
         return this.userMapper.mapToUserResponse(user, storedProfile);
+    }
+
+    @Override
+    public void addDefault(String id) {
+        final Profile profile = new Profile();
+        profile.setAvatar(DEFAULT_AVATAR)
+                .setUserId(id);
+        this.profileRepository.save(profile);
     }
 }

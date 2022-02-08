@@ -18,5 +18,5 @@ public class SecurityProps {
     private Integer expirationTime;
     private String tokenPrefix;
     private String authorizationHeader;
-
+    private String issuer;
 }

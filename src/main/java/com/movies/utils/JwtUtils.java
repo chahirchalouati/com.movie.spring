@@ -5,40 +5,47 @@
  */
 package com.movies.utils;
 
+import com.movies.DTOs.Responses.UserResponse;
 import com.movies.configuration.properties.SecurityProps;
+import com.movies.domain.User;
+import com.movies.services.AppUserDetailsService;
 import com.movies.services.Impl.UserDetailsImpl;
+import com.movies.services.ProfileService;
 import io.jsonwebtoken.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Chahir Chalouati
  */
 @Component
 @Slf4j
-@AllArgsConstructor
-@Data
 public class JwtUtils {
 
     private final SecurityProps securityProps;
+    private final AppUserDetailsService userDetailsService;
+    private final ProfileService profileService;
+
+    public JwtUtils(SecurityProps securityProps, AppUserDetailsService userDetailsService, @Lazy ProfileService profileService) {
+        this.securityProps = securityProps;
+        this.userDetailsService = userDetailsService;
+        this.profileService = profileService;
+    }
 
     public String generateJwtToken(Authentication authentication) {
         final UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         final long date = System.currentTimeMillis() + this.securityProps.getExpirationTime();
-        List<String> roles = userPrincipal.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        final User user = this.userDetailsService.getUser();
+        final UserResponse userResponse = profileService.getOne(user.getId());
         return Jwts.builder()
-                .setIssuer("com.movies")
+                .setIssuer(securityProps.getIssuer())
                 .setSubject(userPrincipal.getUsername())
-                .claim("roles", roles)
+                .claim("user", userResponse)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(date))
                 .signWith(SignatureAlgorithm.HS512, this.securityProps.getSecret())

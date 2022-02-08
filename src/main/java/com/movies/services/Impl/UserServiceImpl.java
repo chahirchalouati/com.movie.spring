@@ -9,6 +9,7 @@ import com.movies.exceptions.EntityNotFoundException;
 import com.movies.mappers.UserMapper;
 import com.movies.repositories.RoleRepository;
 import com.movies.repositories.UserRepository;
+import com.movies.services.ProfileService;
 import com.movies.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+
 /**
  * @author Chahir Chalouati
  */
@@ -29,6 +31,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserMapper userMapper;
+    private final ProfileService profileService;
+
 
     private static void userNotFound() {
         throw new EntityNotFoundException("user not found");
@@ -39,6 +43,7 @@ public class UserServiceImpl implements UserService {
         final User user = this.userMapper.mapToUser(createUserRequest);
         this.validateRoles(createUserRequest.getRoles(), user);
         final User storedUser = this.userRepository.save(user);
+        this.profileService.addDefault(user.getId());
         return this.userMapper.mapToUserResponse(storedUser);
     }
 

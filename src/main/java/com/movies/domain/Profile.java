@@ -36,4 +36,19 @@ public class Profile {
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private LocalDateTime createdAt;
+
+    public Profile setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public Profile setUserId(String userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public Profile setAvatar(String avatar) {
+        this.avatar = avatar;
+        return this;
+    }
 }

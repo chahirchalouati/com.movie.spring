@@ -2,6 +2,7 @@ package com.movies.configuration;
 
 import com.movies.authentication.AuthEntryPointJwt;
 import com.movies.authentication.AuthTokenFilter;
+import com.movies.services.AppUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthTokenFilter authenticationJwtTokenFilter;
-    private final UserDetailsService userDetailsService;
+    private final AppUserDetailsService userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
 
 

@@ -1,13 +1,11 @@
 package com.movies.DTOs.Responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.movies.domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +17,5 @@ public class UserResponse {
     private String firstName;
     private String lastName;
     private String avatar;
-    private Set<Role> roles = new HashSet<>();
+    private List<RoleResponse> roles;
 }

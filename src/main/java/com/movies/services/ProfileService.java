@@ -14,4 +14,6 @@ public interface ProfileService {
     UserResponse add(CreateProfileRequest createProfileRequest);
 
     UserResponse update(UpdateProfileRequest updateProfileRequest);
+
+    void addDefault(String id);
 }
