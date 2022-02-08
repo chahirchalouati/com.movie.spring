@@ -14,6 +14,8 @@ public interface StorageService {
 
     Path getPath(String path);
 
+    Path getPath(String dir, String fileName, String type);
+
     File store(MultipartFile file);
 
     Resource download(Path path);

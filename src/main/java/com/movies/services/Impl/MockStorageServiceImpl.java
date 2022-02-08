@@ -28,11 +28,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
+
+import static com.movies.utils.FileUtils.SLASH;
 
 /**
  * @author Chahir Chalouati
@@ -54,12 +54,11 @@ public class MockStorageServiceImpl implements StorageService {
     @PostConstruct
     @Override
     public void createStore() {
-        final Path absolutePath = this.getPath(dir);
-        try {
-            Files.createDirectories(absolutePath);
-        } catch (Exception exception) {
-            log.info(String.valueOf(NestedExceptionUtils.getMostSpecificCause(exception)));
-        }
+        Arrays.stream(File.FileType.values())
+                .map(Enum::toString)
+                .map(String::toLowerCase)
+                .map(s -> s.concat("s"))
+                .forEach(createDirs());
     }
 
     @Override
@@ -99,30 +98,52 @@ public class MockStorageServiceImpl implements StorageService {
     }
 
     @Override
+    public Path getPath(String dir, String fileName, String type) {
+        return Paths.get(dir.concat(SLASH)
+                        .concat(type.toLowerCase(Locale.ROOT))
+                        .concat(SLASH)
+                        .concat(fileName))
+                .normalize().toAbsolutePath();
+    }
+
+    @Override
     public File store(MultipartFile file) {
         try {
-
-
             final String originalFilename = Objects.requireNonNull(file.getOriginalFilename());
-            final String fileName = fileStorageUtils
+            final String fileName = this.fileStorageUtils
                     .getExtension(originalFilename)
                     .then()
                     .getFileName();
+            final File.FileType type = resolveFileType(file);
             final InputStream inputStream = file.getInputStream();
-            final Path path = this.getPath(dir.concat("/").concat(fileName));
+            final Path path = this.getPath(dir, fileName, type.name().concat("s"));
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
             final File fileToStore = new File()
                     .setName(fileName)
                     .setPath(path.toString())
-                    .setDownloadUrl("/files/".concat(fileName))
-                    .setType(resolveFileType(file));
+                    .setDownloadUrl(this.buidlDownloadUrl(fileName, "files"))
+                    .setType(type);
             return this.fileRepository.save(fileToStore);
-
         } catch (IOException e) {
             String format = String.format("unable to store file fileName : %s", file.getName());
             log.info(format);
             throw new FileStoreException(format);
         }
+    }
+
+    @Override
+    public Resource download(Path path) {
+        try {
+            return this.resourceLoader.getResource(path.toString());
+        } catch (Exception exception) {
+            String format = String.format("unable to store file fileName : %s", path.getFileName());
+            log.info(format);
+            throw new FileStoreException(format);
+        }
+    }
+
+    private String buidlDownloadUrl(String fileName, String location) {
+        return SLASH.concat(location).concat(SLASH).concat(fileName);
     }
 
     private File.FileType resolveFileType(MultipartFile file) {
@@ -131,16 +152,14 @@ public class MockStorageServiceImpl implements StorageService {
         return File.FileType.OTHER;
     }
 
-    @Override
-    public Resource download(Path path) {
-        try {
-            return resourceLoader.getResource(path.toString());
-        } catch (Exception exception) {
-            String format = String.format("unable to store file fileName : %s", path.getFileName());
-            log.info(format);
-            throw new FileStoreException(format);
-        }
+    private Consumer<String> createDirs() {
+        return fileType -> {
+            try {
+                final Path absolutePath = this.getPath(dir.concat(SLASH).concat(fileType));
+                Files.createDirectories(absolutePath);
+            } catch (Exception exception) {
+                log.info(String.valueOf(NestedExceptionUtils.getMostSpecificCause(exception)));
+            }
+        };
     }
-
-
 }

@@ -37,7 +37,6 @@ public class FileStorageUtils {
     private final Map<String, ImageDimension> dimensionMap = new HashMap<>();
     private String extension = ".ext";
 
-
     public String getFileName() {
         return UUID.randomUUID().toString().concat(".").concat(this.extension);
     }
@@ -50,7 +49,13 @@ public class FileStorageUtils {
         String[] strings = originalFilename.split("\\.");
         final String extension = strings[strings.length - 1];
         validateExtension(extension);
+        this.extension = extension;
         return this;
+    }
+
+    public String extractExtension(@NotNull String originalFilename) {
+        String[] strings = originalFilename.split("\\.");
+        return strings[strings.length - 1];
     }
 
     public FileStorageUtils then() {
@@ -92,6 +97,13 @@ public class FileStorageUtils {
         if (!contains) {
             throw new FileFormatNotAcceptedException("file extension not accepted");
         }
+    }
+
+    public boolean validateExtension(String extension, List<String> extensions) {
+        return extensions.stream()
+                .map(String::trim)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList()).contains(extension);
     }
 
 

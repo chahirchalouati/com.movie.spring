@@ -3,6 +3,7 @@ package com.movies.mappers;
 import com.movies.DTOs.Requests.CreateUserRequest;
 import com.movies.DTOs.Requests.UpdateUserRequest;
 import com.movies.DTOs.Responses.UserResponse;
+import com.movies.domain.Profile;
 import com.movies.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+
 /**
  * @author Chahir Chalouati
  */
@@ -27,6 +29,7 @@ public abstract class UserMapper {
             @Mapping(target = "password", expression = "java(passwordEncoder.encode(createUserRequest.getPassword()))")
     })
     public abstract User mapToUser(CreateUserRequest createUserRequest);
+
     @Mappings({
             @Mapping(target = "id", source = "id"),
             @Mapping(target = "userName", source = "userName"),
@@ -36,6 +39,7 @@ public abstract class UserMapper {
             @Mapping(target = "password", expression = "java(passwordEncoder.encode(createUserRequest.getPassword()))")
     })
     public abstract User mapToUser(UpdateUserRequest createUserRequest);
+
     @Mappings({
             @Mapping(target = "id", source = "id"),
             @Mapping(target = "userName", source = "userName"),
@@ -45,5 +49,15 @@ public abstract class UserMapper {
     })
     public abstract UserResponse mapToUserResponse(User user);
 
-    public abstract List<UserResponse> map(List<User> users) ;
+    @Mappings({
+            @Mapping(target = "id", source = "user.id"),
+            @Mapping(target = "userName", source = "user.userName"),
+            @Mapping(target = "lastName", source = "user.lastName"),
+            @Mapping(target = "firstName", source = "user.firstName"),
+            @Mapping(target = "roles", source = "user.roles"),
+            @Mapping(target = "avatar", source = "profile.avatar"),
+    })
+    public abstract UserResponse mapToUserResponse(User user, Profile profile);
+
+    public abstract List<UserResponse> map(List<User> users);
 }

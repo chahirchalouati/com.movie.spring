@@ -24,6 +24,8 @@ spring:
   servlet:
     multipart:
       max-file-size: 4GB
+      max-request-size: 4GB
+      enabled: true
 security:
   secret: secret
   expirationTime: 43200000
@@ -33,6 +35,8 @@ file:
   storage:
     dir: ./store
   extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD
+  images:
+    extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff
 
 ---
 spring:

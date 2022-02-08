@@ -27,8 +27,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.movies.utils.FileUtils.BACK_SLASH;
-import static com.movies.utils.FileUtils.POINT;
+import static com.movies.utils.FileUtils.DOT;
+import static com.movies.utils.FileUtils.SLASH;
 
 @Service
 @Profile("prod")
@@ -57,7 +57,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String generateFileName(String extension) {
-        return UUID.randomUUID().toString().concat(POINT).concat(extension);
+        return UUID.randomUUID().toString().concat(DOT).concat(extension);
     }
 
     @Override
@@ -71,13 +71,18 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
+    public Path getPath(String dir, String fileName, String type) {
+        return Paths.get(dir.concat(SLASH).concat(type.toLowerCase(Locale.ROOT).concat("s")).concat(SLASH).concat(fileName)).normalize().toAbsolutePath();
+    }
+
+    @Override
     public File store(MultipartFile file) {
         try {
             String[] splitResult = Objects.requireNonNull(file.getOriginalFilename()).split(FileUtils.EXTENSION_SPLITTER);
             final String fileName = this.generateFileName(splitResult[splitResult.length - 1]);
             final InputStream inputStream = file.getInputStream();
 
-            final Path path = this.getPath(dir.concat(BACK_SLASH).concat(fileName));
+            final Path path = this.getPath(dir.concat(SLASH).concat(fileName));
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
             final File fileToStore = new File()
                     .setName(fileName)
