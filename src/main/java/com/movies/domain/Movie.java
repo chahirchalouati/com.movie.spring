@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * @author Chahir Chalouati
  */
@@ -40,6 +41,12 @@ public class Movie {
     @JsonIgnore
     private String path;
     private String downloadUrl;
+    // TODO: 2/9/2022 add logic in movie mapper
+    private String duration;
+    private String genre;
+    private LocalDateTime inCinema;
+    private boolean isExclusive = false;
+
 
     private Set<Person> actors = new HashSet<>();
     private Set<Like> likes = new HashSet<>();

@@ -14,12 +14,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 /**
  * @author Chahir Chalouati
  */
 @Service
 @AllArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
+
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final UserServiceImpl userService;
