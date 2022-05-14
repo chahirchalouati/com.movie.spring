@@ -24,7 +24,6 @@ import java.util.Set;
 @Data
 @Builder
 @Document(collection = Movie.COLLECTION_NAME)
-
 public class Movie {
     public static final String COLLECTION_NAME = "movies";
     @Id

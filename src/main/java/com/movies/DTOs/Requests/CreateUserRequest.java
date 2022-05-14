@@ -26,6 +26,5 @@ public class CreateUserRequest {
     public String lastName;
     @PasswordValidation(message = MessageUtils.PASSWORD_ERROR)
     private String password;
-    @NotEmptyList
     private Set<Role> roles = new HashSet<>();
 }

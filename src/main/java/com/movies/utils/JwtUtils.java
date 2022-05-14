@@ -13,7 +13,6 @@ import com.movies.services.Impl.UserDetailsImpl;
 import com.movies.services.ProfileService;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +30,7 @@ public class JwtUtils {
     private final AppUserDetailsService userDetailsService;
     private final ProfileService profileService;
 
-    public JwtUtils(SecurityProps securityProps, AppUserDetailsService userDetailsService, @Lazy ProfileService profileService) {
+    public JwtUtils(SecurityProps securityProps , AppUserDetailsService userDetailsService , ProfileService profileService) {
         this.securityProps = securityProps;
         this.userDetailsService = userDetailsService;
         this.profileService = profileService;

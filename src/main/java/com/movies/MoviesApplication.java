@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.config.EnableMongoAuditing;
 @SpringBootApplication
 @EnableMongoAuditing
 @ConfigurationPropertiesScan("com.movies.configuration.properties")
-public class Application {
+public class MoviesApplication {
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(MoviesApplication.class, args);
     }
 }

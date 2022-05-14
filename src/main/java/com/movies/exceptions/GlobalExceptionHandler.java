@@ -30,6 +30,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> badRequestResponse(MethodArgumentNotValidException exception) {
         final Map<String, String> errorsMap = exception.getBindingResult().getFieldErrors()
                 .stream()
+                .filter(fieldError -> !fieldError.getField().equals("roles"))
                 .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
         return new ResponseEntity<>(new ErrorResponse(errorsMap), HttpStatus.BAD_REQUEST);
     }

@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse add(CreateUserRequest createUserRequest) {
         final User user = this.userMapper.mapToUser(createUserRequest);
-        this.validateRoles(createUserRequest.getRoles(), user);
+//        this.validateRoles(createUserRequest.getRoles(), user);
         final User storedUser = this.userRepository.save(user);
         this.profileService.addDefault(user.getId());
         return this.userMapper.mapToUserResponse(storedUser);
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse update(UpdateUserRequest updateUserRequest) {
         this.userRepository.findById(updateUserRequest.getId()).ifPresentOrElse(this.userRepository::delete, UserServiceImpl::userNotFound);
         final User user = this.userMapper.mapToUser(updateUserRequest);
-        this.validateRoles(updateUserRequest.getRoles(), user);
+//        this.validateRoles(updateUserRequest.getRoles(), user);
         final User storedUser = this.userRepository.save(user);
         return this.userMapper.mapToUserResponse(storedUser);
     }
