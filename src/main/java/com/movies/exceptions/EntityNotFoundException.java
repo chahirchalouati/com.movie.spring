@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Chahir Chalouati
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-@AllArgsConstructor
-@NoArgsConstructor
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {
         super(message);
