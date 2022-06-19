@@ -1,7 +1,7 @@
 package com.movies.controllers;
 
-import com.movies.DTOs.Requests.CreateMovieRequest;
-import com.movies.DTOs.Requests.UpdateMovieRequest;
+import com.movies.dtos.Requests.CreateMovieRequest;
+import com.movies.dtos.Requests.UpdateMovieRequest;
 import com.movies.services.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

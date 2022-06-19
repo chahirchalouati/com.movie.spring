@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.movies.utils;
+package com.movies.helpers;
 
-import com.movies.DTOs.Responses.UserResponse;
 import com.movies.configuration.properties.SecurityProps;
 import com.movies.domain.User;
+import com.movies.dtos.Responses.UserResponse;
 import com.movies.services.AppUserDetailsService;
 import com.movies.services.Impl.UserDetailsImpl;
 import com.movies.services.ProfileService;
@@ -24,18 +24,19 @@ import java.util.Date;
  */
 @Component
 @Slf4j
-public class JwtUtils {
+public class JWTHelperImp implements JWTHelper {
 
     private final SecurityProps securityProps;
     private final AppUserDetailsService userDetailsService;
     private final ProfileService profileService;
 
-    public JwtUtils(SecurityProps securityProps , AppUserDetailsService userDetailsService , ProfileService profileService) {
+    public JWTHelperImp(SecurityProps securityProps , AppUserDetailsService userDetailsService , ProfileService profileService) {
         this.securityProps = securityProps;
         this.userDetailsService = userDetailsService;
         this.profileService = profileService;
     }
 
+    @Override
     public String generateJwtToken(Authentication authentication) {
         final UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         final long date = System.currentTimeMillis() + this.securityProps.getExpirationTime();
@@ -47,15 +48,17 @@ public class JwtUtils {
                 .claim("user", userResponse)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(date))
-                .signWith(SignatureAlgorithm.HS512, this.securityProps.getSecret())
+                .signWith(SignatureAlgorithm.HS512 , this.securityProps.getSecret())
                 .compact();
     }
 
+    @Override
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(securityProps.getSecret()).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateJwtToken(String authToken, HttpServletRequest httpServletRequest) {
+    @Override
+    public boolean validateJwtToken(String authToken , HttpServletRequest httpServletRequest) {
         try {
             Jwts.parser().setSigningKey(this.securityProps.getSecret()).parseClaimsJws(authToken);
             return true;
@@ -65,7 +68,7 @@ public class JwtUtils {
             log.warn("Invalid JWT token");
         } catch (ExpiredJwtException ex) {
             log.info("Expired JWT token");
-            httpServletRequest.setAttribute("expired", ex.getMessage());
+            httpServletRequest.setAttribute("expired" , ex.getMessage());
         } catch (UnsupportedJwtException ex) {
             log.info("Unsupported JWT exception");
         } catch (IllegalArgumentException ex) {

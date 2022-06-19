@@ -1,6 +1,6 @@
 package com.movies.controllers;
 
-import com.movies.DTOs.Requests.BannerCreateRequest;
+import com.movies.dtos.Requests.BannerCreateRequest;
 import com.movies.services.BannerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

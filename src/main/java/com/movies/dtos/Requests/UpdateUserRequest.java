@@ -1,10 +1,11 @@
-package com.movies.DTOs.Requests;
+package com.movies.dtos.Requests;
 
 import com.movies.domain.Role;
 import com.movies.validations.annotations.NotEmptyList;
 import com.movies.validations.annotations.PasswordValidation;
 import com.movies.validations.annotations.UniqueUserName;
 import com.movies.validations.messages.MessageUtils;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,10 +15,12 @@ import java.util.Set;
 /**
  * @author Chahir Chalouati
  */
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest {
-    @UniqueUserName
+@Data
+public class UpdateUserRequest {
+    private String id;
+    @UniqueUserName(isUpdate=true)
     @NotBlank(message = "userName can't be blank")
     private String userName;
     @NotBlank(message = "firstName can't be blank")
@@ -26,5 +29,6 @@ public class CreateUserRequest {
     public String lastName;
     @PasswordValidation(message = MessageUtils.PASSWORD_ERROR)
     private String password;
+    @NotEmptyList
     private Set<Role> roles = new HashSet<>();
 }

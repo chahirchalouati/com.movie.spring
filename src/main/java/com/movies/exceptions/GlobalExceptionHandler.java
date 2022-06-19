@@ -1,6 +1,6 @@
 package com.movies.exceptions;
 
-import com.movies.DTOs.Responses.ErrorResponse;
+import com.movies.dtos.Responses.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.Objects.nonNull;
+import static java.util.stream.Collectors.toMap;
 
 /**
  * @author Chahir Chalouati
@@ -31,7 +34,8 @@ public class GlobalExceptionHandler {
         final Map<String, String> errorsMap = exception.getBindingResult().getFieldErrors()
                 .stream()
                 .filter(fieldError -> !fieldError.getField().equals("roles"))
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+                .filter(field -> nonNull(field.getDefaultMessage()))
+                .collect(toMap(FieldError::getField, FieldError::getDefaultMessage));
         return new ResponseEntity<>(new ErrorResponse(errorsMap), HttpStatus.BAD_REQUEST);
     }
 
@@ -39,7 +43,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> bindException(BindException exception) {
         final Map<String, String> errorsMap = exception.getBindingResult().getFieldErrors()
                 .stream()
-                .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+                .filter(field -> nonNull(field.getDefaultMessage()))
+                .collect(toMap(FieldError::getField, FieldError::getDefaultMessage));
         return new ResponseEntity<>(new ErrorResponse(errorsMap), HttpStatus.BAD_REQUEST);
     }
 

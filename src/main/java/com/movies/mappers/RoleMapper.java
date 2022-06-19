@@ -1,7 +1,7 @@
 package com.movies.mappers;
 
-import com.movies.DTOs.Responses.RoleResponse;
 import com.movies.domain.Role;
+import com.movies.dtos.Responses.RoleResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

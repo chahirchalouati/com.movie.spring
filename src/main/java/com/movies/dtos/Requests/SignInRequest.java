@@ -1,4 +1,4 @@
-package com.movies.DTOs.Requests;
+package com.movies.dtos.Requests;
 
 import com.movies.validations.annotations.PasswordValidation;
 import com.movies.validations.messages.MessageUtils;

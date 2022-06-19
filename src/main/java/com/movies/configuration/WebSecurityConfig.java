@@ -1,7 +1,7 @@
 package com.movies.configuration;
 
-import com.movies.authentication.AuthEntryPointJwt;
-import com.movies.authentication.AuthTokenFilter;
+import com.movies.authentication.AuthenticationTokenFilter;
+import com.movies.authentication.JWTAuthenticationEntryPointImpl;
 import com.movies.services.AppUserDetailsService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -27,9 +26,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final AuthTokenFilter authenticationJwtTokenFilter;
+    private final AuthenticationTokenFilter authenticationJwtTokenFilter;
     private final AppUserDetailsService userDetailsService;
-    private final AuthEntryPointJwt unauthorizedHandler;
+    private final JWTAuthenticationEntryPointImpl unauthorizedHandler;
 
 
     @Override

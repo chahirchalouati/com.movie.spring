@@ -1,8 +1,8 @@
 package com.movies.services;
 
-import com.movies.DTOs.Requests.CreateMovieRequest;
-import com.movies.DTOs.Requests.UpdateMovieRequest;
-import com.movies.DTOs.Responses.MovieResponse;
+import com.movies.dtos.Requests.CreateMovieRequest;
+import com.movies.dtos.Requests.UpdateMovieRequest;
+import com.movies.dtos.Responses.MovieResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -1,4 +1,4 @@
-package com.movies.DTOs.Responses;
+package com.movies.dtos.Responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class RoleResponse {
-
-    private String role;
+public class ProfileResponse {
+    private UserResponse user;
+    private String avatar;
 
 }

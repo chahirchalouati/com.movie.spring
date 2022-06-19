@@ -1,4 +1,4 @@
-package com.movies.DTOs.Requests;
+package com.movies.dtos.Requests;
 
 import com.movies.validations.annotations.OnlyImage;
 import lombok.AllArgsConstructor;

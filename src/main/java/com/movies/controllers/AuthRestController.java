@@ -1,7 +1,7 @@
 package com.movies.controllers;
 
-import com.movies.DTOs.Requests.CreateUserRequest;
-import com.movies.DTOs.Requests.SignInRequest;
+import com.movies.dtos.Requests.CreateUserRequest;
+import com.movies.dtos.Requests.SignInRequest;
 import com.movies.services.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

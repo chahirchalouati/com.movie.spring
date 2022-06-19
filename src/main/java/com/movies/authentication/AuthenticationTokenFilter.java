@@ -1,8 +1,8 @@
 package com.movies.authentication;
 
 import com.movies.configuration.properties.SecurityProps;
+import com.movies.helpers.JWTHelperImp;
 import com.movies.services.Impl.UserDetailsServiceImpl;
-import com.movies.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,9 +25,9 @@ import java.io.IOException;
  */
 @Slf4j
 @Component
-public class AuthTokenFilter extends OncePerRequestFilter {
+public class AuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private JwtUtils jwtUtils;
+    private JWTHelperImp JWTHelperImpImpl;
     @Autowired
     private SecurityProps securityProps;
     @Autowired
@@ -38,15 +38,15 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String jwt = this.parseJwt(request);
-            if (jwt != null && jwtUtils.validateJwtToken(jwt , request)) {
-                String username = jwtUtils.getUserNameFromJwtToken(jwt);
+            if (jwt != null && JWTHelperImpImpl.validateJwtToken(jwt , request)) {
+                String username = JWTHelperImpImpl.getUserNameFromJwtToken(jwt);
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails , null , userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (UsernameNotFoundException exception) {
-            log.warn("AuthTokenFilter::doFilterInternal :{ } ", exception);
+            log.warn("AuthenticationTokenFilter::doFilterInternal :{ } " , exception);
         }
 
         filterChain.doFilter(request, response);

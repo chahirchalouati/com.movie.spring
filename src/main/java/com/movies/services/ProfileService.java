@@ -1,8 +1,8 @@
 package com.movies.services;
 
-import com.movies.DTOs.Requests.CreateProfileRequest;
-import com.movies.DTOs.Requests.UpdateProfileRequest;
-import com.movies.DTOs.Responses.UserResponse;
+import com.movies.dtos.Requests.CreateProfileRequest;
+import com.movies.dtos.Requests.UpdateProfileRequest;
+import com.movies.dtos.Responses.UserResponse;
 
 /**
  * @author Chahir Chalouati

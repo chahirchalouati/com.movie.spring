@@ -1,7 +1,7 @@
 package com.movies.controllers;
 
-import com.movies.DTOs.Requests.CreateGenreRequest;
-import com.movies.DTOs.Requests.UpdateGenreRequest;
+import com.movies.dtos.Requests.CreateGenreRequest;
+import com.movies.dtos.Requests.UpdateGenreRequest;
 import com.movies.services.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 /**
  * @author Chahir Chalouati

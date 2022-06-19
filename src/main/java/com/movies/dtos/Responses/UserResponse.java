@@ -1,4 +1,4 @@
-package com.movies.DTOs.Responses;
+package com.movies.dtos.Responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

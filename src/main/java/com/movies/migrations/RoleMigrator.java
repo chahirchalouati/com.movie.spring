@@ -1,4 +1,4 @@
-package com.movies.dbInit;
+package com.movies.migrations;
 
 import com.movies.domain.Role;
 import com.movies.repositories.RoleRepository;
@@ -13,7 +13,7 @@ import static com.movies.utils.RoleUtils.DEFAULT_USER_ROLES;
 
 @Configuration
 @RequiredArgsConstructor
-public class RoleInitializer implements CommandLineRunner {
+public class RoleMigrator implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
 

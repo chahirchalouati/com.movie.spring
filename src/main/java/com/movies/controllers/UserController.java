@@ -1,6 +1,6 @@
 package com.movies.controllers;
 
-import com.movies.DTOs.Requests.UpdateUserRequest;
+import com.movies.dtos.Requests.UpdateUserRequest;
 import com.movies.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

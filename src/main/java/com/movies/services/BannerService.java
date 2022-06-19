@@ -1,7 +1,7 @@
 package com.movies.services;
 
-import com.movies.DTOs.Requests.BannerCreateRequest;
 import com.movies.domain.Banner;
+import com.movies.dtos.Requests.BannerCreateRequest;
 
 import java.util.List;
 

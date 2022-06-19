@@ -1,17 +1,16 @@
 package com.movies.mappers;
 
-import com.movies.DTOs.Requests.CreateUserRequest;
-import com.movies.DTOs.Requests.UpdateUserRequest;
-import com.movies.DTOs.Responses.UserResponse;
 import com.movies.domain.Profile;
 import com.movies.domain.User;
+import com.movies.dtos.Requests.CreateUserRequest;
+import com.movies.dtos.Requests.UpdateUserRequest;
+import com.movies.dtos.Responses.UserResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

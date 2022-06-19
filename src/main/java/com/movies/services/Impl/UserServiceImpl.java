@@ -1,10 +1,10 @@
 package com.movies.services.Impl;
 
-import com.movies.DTOs.Requests.CreateUserRequest;
-import com.movies.DTOs.Requests.UpdateUserRequest;
-import com.movies.DTOs.Responses.UserResponse;
 import com.movies.domain.Role;
 import com.movies.domain.User;
+import com.movies.dtos.Requests.CreateUserRequest;
+import com.movies.dtos.Requests.UpdateUserRequest;
+import com.movies.dtos.Responses.UserResponse;
 import com.movies.exceptions.EntityNotFoundException;
 import com.movies.mappers.UserMapper;
 import com.movies.repositories.RoleRepository;

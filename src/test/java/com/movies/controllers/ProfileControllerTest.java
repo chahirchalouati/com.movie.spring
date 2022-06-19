@@ -1,9 +1,7 @@
 package com.movies.controllers;
 
-import com.movies.DTOs.Responses.UserResponse;
+import com.movies.dtos.Responses.UserResponse;
 import com.movies.services.ProfileService;
-import org.apache.tomcat.util.http.parser.HttpParser;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

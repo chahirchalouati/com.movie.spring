@@ -1,8 +1,8 @@
 package com.movies.services;
 
-import com.movies.DTOs.Requests.CreateGenreRequest;
-import com.movies.DTOs.Requests.UpdateGenreRequest;
-import com.movies.DTOs.Responses.GenreResponse;
+import com.movies.dtos.Requests.CreateGenreRequest;
+import com.movies.dtos.Requests.UpdateGenreRequest;
+import com.movies.dtos.Responses.GenreResponse;
 
 import java.util.List;
 

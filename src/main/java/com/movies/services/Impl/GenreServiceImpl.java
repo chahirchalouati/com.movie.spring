@@ -1,9 +1,9 @@
 package com.movies.services.Impl;
 
-import com.movies.DTOs.Requests.CreateGenreRequest;
-import com.movies.DTOs.Requests.UpdateGenreRequest;
-import com.movies.DTOs.Responses.GenreResponse;
 import com.movies.domain.Genre;
+import com.movies.dtos.Requests.CreateGenreRequest;
+import com.movies.dtos.Requests.UpdateGenreRequest;
+import com.movies.dtos.Responses.GenreResponse;
 import com.movies.exceptions.EntityNotFoundException;
 import com.movies.mappers.GenreMapper;
 import com.movies.repositories.GenreRepository;

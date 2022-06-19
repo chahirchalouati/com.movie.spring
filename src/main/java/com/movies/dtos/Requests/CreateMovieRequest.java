@@ -1,4 +1,4 @@
-package com.movies.DTOs.Requests;
+package com.movies.dtos.Requests;
 
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;

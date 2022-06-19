@@ -1,11 +1,11 @@
 package com.movies.services.Impl;
 
-import com.movies.DTOs.Requests.CreateProfileRequest;
-import com.movies.DTOs.Requests.UpdateProfileRequest;
-import com.movies.DTOs.Responses.UserResponse;
 import com.movies.domain.File;
 import com.movies.domain.Profile;
 import com.movies.domain.User;
+import com.movies.dtos.Requests.CreateProfileRequest;
+import com.movies.dtos.Requests.UpdateProfileRequest;
+import com.movies.dtos.Responses.UserResponse;
 import com.movies.exceptions.EntityAlreadyExistsException;
 import com.movies.exceptions.EntityNotFoundException;
 import com.movies.mappers.UserMapper;

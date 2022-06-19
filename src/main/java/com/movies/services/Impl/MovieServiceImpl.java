@@ -1,10 +1,10 @@
 package com.movies.services.Impl;
 
-import com.movies.DTOs.Requests.CreateMovieRequest;
-import com.movies.DTOs.Requests.UpdateMovieRequest;
-import com.movies.DTOs.Responses.MovieResponse;
 import com.movies.domain.File;
 import com.movies.domain.Movie;
+import com.movies.dtos.Requests.CreateMovieRequest;
+import com.movies.dtos.Requests.UpdateMovieRequest;
+import com.movies.dtos.Responses.MovieResponse;
 import com.movies.exceptions.EntityNotFoundException;
 import com.movies.helpers.MovieHelper;
 import com.movies.mappers.MovieMapper;

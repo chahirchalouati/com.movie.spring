@@ -1,9 +1,9 @@
 package com.movies.mappers;
 
-import com.movies.DTOs.Requests.CreateGenreRequest;
-import com.movies.DTOs.Requests.UpdateGenreRequest;
-import com.movies.DTOs.Responses.GenreResponse;
 import com.movies.domain.Genre;
+import com.movies.dtos.Requests.CreateGenreRequest;
+import com.movies.dtos.Requests.UpdateGenreRequest;
+import com.movies.dtos.Responses.GenreResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
