@@ -27,6 +27,10 @@ public class GenreServiceImpl implements GenreService {
     private final GenreMapper genreMapper;
     private final MongoTemplate mongoTemplate;
 
+    private static void notFound() {
+        throw new EntityNotFoundException("unable to find genre");
+    }
+
     @Override
     public List<GenreResponse> getGenres(int limit) {
         Query query = new Query();
@@ -63,9 +67,5 @@ public class GenreServiceImpl implements GenreService {
     public void deleteById(String id) {
         this.genreRepository.findById(id).ifPresentOrElse(genre -> genreRepository.deleteById(genre.getId()), GenreServiceImpl::notFound);
 
-    }
-
-    private static void notFound() {
-        throw new EntityNotFoundException("unable to find genre");
     }
 }

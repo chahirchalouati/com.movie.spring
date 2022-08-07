@@ -1,8 +1,6 @@
 package com.movies.domain;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -16,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Genre {
     public static final String COLLECTION_NAME = "genres";
     private String id;
-//    @Indexed(unique = true)
+    //    @Indexed(unique = true)
     private String name;
 
     public Genre setId(String id) {

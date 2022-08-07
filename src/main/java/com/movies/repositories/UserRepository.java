@@ -4,6 +4,7 @@ import com.movies.domain.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
+
 /**
  * @author Chahir Chalouati
  */

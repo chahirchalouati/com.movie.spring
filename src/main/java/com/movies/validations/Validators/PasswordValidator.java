@@ -4,6 +4,7 @@ import com.movies.validations.annotations.PasswordValidation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
 /**
  * @author Chahir Chalouati
  */

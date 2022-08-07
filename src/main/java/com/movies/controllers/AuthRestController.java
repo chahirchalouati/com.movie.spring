@@ -22,7 +22,7 @@ public class AuthRestController {
 
 
     @PostMapping(value = "/signin")
-    public ResponseEntity<?> signIn(@RequestBody @Valid  SignInRequest request) {
+    public ResponseEntity<?> signIn(@RequestBody @Valid SignInRequest request) {
         return this.authenticationService.signIn(request);
     }
 

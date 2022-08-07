@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.Set;
+
 /**
  * @author Chahir Chalouati
  */

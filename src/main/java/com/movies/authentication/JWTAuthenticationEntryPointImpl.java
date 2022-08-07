@@ -19,14 +19,14 @@ import java.io.IOException;
 public class JWTAuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request , HttpServletResponse response , AuthenticationException authException) throws IOException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         final String expired = (String) request.getAttribute("expired");
         if (expired != null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED , expired);
-            log.error("JWTAuthenticationEntryPointImpl::commence : {} {}" , HttpServletResponse.SC_UNAUTHORIZED , expired);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, expired);
+            log.error("JWTAuthenticationEntryPointImpl::commence : {} {}", HttpServletResponse.SC_UNAUTHORIZED, expired);
         } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED , "Invalid Login Credentials");
-            log.error("JWTAuthenticationEntryPointImpl::commence : {} {}" , HttpServletResponse.SC_UNAUTHORIZED , "Invalid Login Credentials");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Login Credentials");
+            log.error("JWTAuthenticationEntryPointImpl::commence : {} {}", HttpServletResponse.SC_UNAUTHORIZED, "Invalid Login Credentials");
         }
     }
 

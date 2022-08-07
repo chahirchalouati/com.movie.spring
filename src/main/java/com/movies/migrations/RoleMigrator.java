@@ -1,27 +1,31 @@
 package com.movies.migrations;
 
+import com.movies.configuration.properties.RoleProps;
 import com.movies.domain.Role;
 import com.movies.repositories.RoleRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Configuration;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
-import static com.movies.utils.RoleUtils.DEFAULT_ADMIN_ROLES;
-import static com.movies.utils.RoleUtils.DEFAULT_USER_ROLES;
-
-@Configuration
+@Component("roleMigrator")
 @RequiredArgsConstructor
-public class RoleMigrator implements CommandLineRunner {
-
+@Slf4j
+public class RoleMigrator implements Migration {
+    private final RoleProps roleProps;
     private final RoleRepository roleRepository;
 
     @Override
-    public void run(String... args) {
-        if (roleRepository.count() > 0) return;
-        Arrays.stream(DEFAULT_USER_ROLES).forEach(role -> roleRepository.save(new Role().setRole(role)));
-        Arrays.stream(DEFAULT_ADMIN_ROLES).forEach(role -> roleRepository.save(new Role().setRole(role)));
+    public void migrate() {
+        log.info("START MIGRATION ON " + this.getClass().getName());
+        roleProps.getUserRoles().stream()
+                .filter(role -> !roleRepository.existsByRole(role))
+                .peek(role -> log.info("added new role " + role))
+                .forEach(role -> roleRepository.save(new Role().setRole(role)));
 
+        roleProps.getAdminRoles().stream()
+                .filter(role -> !roleRepository.existsByRole(role))
+                .peek(role -> log.info("added new role " + role))
+                .forEach(role -> roleRepository.save(new Role().setRole(role)));
+        log.info("END MIGRATION ON " + this.getClass().getName());
     }
 }

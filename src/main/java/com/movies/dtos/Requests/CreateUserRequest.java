@@ -10,19 +10,20 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * @author Chahir Chalouati
  */
 @Data
 @NoArgsConstructor
 public class CreateUserRequest {
-    @UniqueUserName
-    @NotBlank(message = "userName can't be blank")
-    private String userName;
     @NotBlank(message = "firstName can't be blank")
     public String firstName;
     @NotBlank(message = "lastName can't be blank")
     public String lastName;
+    @UniqueUserName
+    @NotBlank(message = "userName can't be blank")
+    private String userName;
     @PasswordValidation(message = MessageUtils.PASSWORD_ERROR)
     private String password;
     private Set<Role> roles = new HashSet<>();

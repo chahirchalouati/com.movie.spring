@@ -1,4 +1,5 @@
 package com.movies.validations.messages;
+
 /**
  * @author Chahir Chalouati
  */

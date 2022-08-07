@@ -22,7 +22,7 @@ public abstract class GenreMapper {
             @Mapping(source = "id", target = "id", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE),
             @Mapping(source = "name", target = "name"),
     })
-    public   abstract GenreResponse mapToGenreResponse(Genre genre);
+    public abstract GenreResponse mapToGenreResponse(Genre genre);
 
     @Mappings({
             @Mapping(source = "name", target = "name"),

@@ -24,6 +24,7 @@ public abstract class UserMapper {
     public PasswordEncoder passwordEncoder;
     @Autowired
     public RoleMapper roleMapper;
+
     @Mappings({
             @Mapping(target = "userName", source = "userName"),
             @Mapping(target = "lastName", source = "lastName"),
@@ -56,7 +57,7 @@ public abstract class UserMapper {
             @Mapping(target = "userName", source = "user.userName"),
             @Mapping(target = "lastName", source = "user.lastName"),
             @Mapping(target = "firstName", source = "user.firstName"),
-            @Mapping(target = "roles",expression = "java(roleMapper.map(user.getRoles().stream().collect(Collectors.toList())))"),
+            @Mapping(target = "roles", expression = "java(roleMapper.map(user.getRoles().stream().collect(Collectors.toList())))"),
             @Mapping(target = "avatar", source = "profile.avatar"),
     })
     public abstract UserResponse mapToUserResponse(User user, Profile profile);

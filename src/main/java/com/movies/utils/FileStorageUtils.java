@@ -32,9 +32,9 @@ import java.util.stream.Collectors;
 @Component
 public class FileStorageUtils {
 
+    private final Map<String, ImageDimension> dimensionMap = new HashMap<>();
     @Value("${file.extensions}")
     private List<String> extensions;
-    private final Map<String, ImageDimension> dimensionMap = new HashMap<>();
     private String extension = ".ext";
 
     public String getFileName() {

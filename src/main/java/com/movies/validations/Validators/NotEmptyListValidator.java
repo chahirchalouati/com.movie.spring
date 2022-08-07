@@ -5,6 +5,7 @@ import com.movies.validations.annotations.NotEmptyList;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Collection;
+
 /**
  * @author Chahir Chalouati
  */

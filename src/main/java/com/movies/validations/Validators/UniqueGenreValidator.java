@@ -13,7 +13,7 @@ import javax.validation.ConstraintValidatorContext;
 public class UniqueGenreValidator implements ConstraintValidator<UniqueGenre, String> {
 
     @Autowired
-    private  GenreRepository genreRepository;
+    private GenreRepository genreRepository;
 
     @Override
     public void initialize(UniqueGenre constraintAnnotation) {

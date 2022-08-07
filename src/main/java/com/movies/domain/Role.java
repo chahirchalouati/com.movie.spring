@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -23,12 +24,11 @@ public class Role {
     public static final String COLLECTION_NAME = "roles";
     @Id
     private String id;
-    @Indexed
+    @Indexed(background = true, direction = IndexDirection.ASCENDING, name = "role_1")
     private String role;
 
     @JsonIgnore
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS", shape = JsonFormat.Shape.STRING)
     private LocalDateTime createdAt;
 
     public Role setRole(String role) {

@@ -9,5 +9,5 @@ public interface JWTHelper {
 
     String getUserNameFromJwtToken(String token);
 
-    boolean validateJwtToken(String authToken , HttpServletRequest httpServletRequest);
+    boolean validateJwtToken(String authToken, HttpServletRequest httpServletRequest);
 }

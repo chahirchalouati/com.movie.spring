@@ -19,5 +19,20 @@
       "name": "security.authorizationHeader",
       "type": "java.lang.String",
       "description": "Description for security.authorizationHeader."
+    },
+    {
+      "name": "roles.user-roles",
+      "type": "java.util.Set",
+      "description": "Description for roles.user-roles."
+    },
+    {
+      "name": "roles.admin-roles",
+      "type": "java.util.Set",
+      "description": "Description for roles.admin-roles."
+    },
+    {
+      "name": "secret",
+      "type": "java.lang.String",
+      "description": "Description for security.secret."
     }
   ] }

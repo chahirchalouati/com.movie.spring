@@ -24,6 +24,7 @@ public class UserController {
     public ResponseEntity<?> findAll(Pageable pageable) {
         return new ResponseEntity<>(userService.findAll(pageable), HttpStatus.OK);
     }
+
     @GetMapping("/username/{username}")
     public ResponseEntity<?> findByUserName(@PathVariable String username) {
         return new ResponseEntity<>(userService.findByUserName(username), HttpStatus.OK);

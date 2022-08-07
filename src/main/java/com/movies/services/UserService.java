@@ -18,6 +18,7 @@ public interface UserService {
     boolean deleteById(String id);
 
     boolean deleteByUserName(String username);
+
     UserResponse findByUserName(String username);
 
     Page<UserResponse> findAll(Pageable pageable);

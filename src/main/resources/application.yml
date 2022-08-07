@@ -1,10 +1,6 @@
 server:
   port: 8080
-logging:
-  level:
-    org:
-      springframework:
-        data: DEBUG
+
 spring:
   profiles: dev
   data:
@@ -12,9 +8,7 @@ spring:
       host: localhost
       authentication-database: admin
       auto-index-creation: true
-      password: strongPassword
-      username: root
-      database: movies
+      database: movies_dev
       port: 27017
     web:
       pageable:
@@ -34,13 +28,25 @@ security:
   tokenPrefix: Bearer
   authorizationHeader: Authorization
   issuer: movie.code.dreamer.com
+  admin-secret: super
 file:
   storage:
     dir: ./store
   extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD
   images:
     extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff
-
+roles:
+  user-roles:
+    - ROLE_USER
+    - VIEW_USER_MOVIE
+  admin-roles:
+    - ROLE_ADMIN
+    - CREATE_ADMIN_MOVIE
+    - UPDATE_ADMIN_MOVIE
+    - DELETE_ADMIN_MOVIE
+    - VIEW_ALL_MOVIE
+    - BLOCK_ACCOUNT
+    - RESET_PASSWORD
 ---
 spring:
   profiles: test
@@ -70,6 +76,18 @@ file:
   storage:
     dir: ./test-store
   extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD
+roles:
+  user-roles:
+    - ROLE_USER
+    - VIEW_USER_MOVIE
+  admin-roles:
+    - ROLE_ADMIN
+    - CREATE_ADMIN_MOVIE
+    - UPDATE_ADMIN_MOVIE
+    - DELETE_ADMIN_MOVIE
+    - VIEW_ALL_MOVIE
+    - BLOCK_ACCOUNT
+    - RESET_PASSWORD
 ---
 spring:
   profiles: prod
@@ -99,3 +117,15 @@ file:
   storage:
     dir: ./prod-store
   extensions: bmp, gif, jpeg, jpg, png, svg, tif, tiff ,WEBM ,MPG  ,MP2  ,MPEG  ,MPE  ,MPV ,OGG ,MP4  ,M4P  ,M4V ,AVI  ,WMV ,MOV  ,QT ,FLV  ,SWF ,AVCHD
+roles:
+  user-roles:
+    - ROLE_USER
+    - VIEW_USER_MOVIE
+  admin-roles:
+    - ROLE_ADMIN
+    - CREATE_ADMIN_MOVIE
+    - UPDATE_ADMIN_MOVIE
+    - DELETE_ADMIN_MOVIE
+    - VIEW_ALL_MOVIE
+    - BLOCK_ACCOUNT
+    - RESET_PASSWORD

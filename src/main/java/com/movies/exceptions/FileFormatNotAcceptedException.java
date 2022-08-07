@@ -1,8 +1,5 @@
 package com.movies.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 /**
  * @author Chahir Chalouati
  */

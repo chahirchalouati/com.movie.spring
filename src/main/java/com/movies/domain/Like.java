@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+
 /**
  * @author Chahir Chalouati
  */

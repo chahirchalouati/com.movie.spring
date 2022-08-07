@@ -31,6 +31,7 @@ public class MovieController {
     public ResponseEntity<?> findOne(@PathVariable("id") String id) {
         return ResponseEntity.ok(this.movieService.getOne(id));
     }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> add(@Valid CreateMovieRequest createMovieRequest) {
         return new ResponseEntity<>(this.movieService.add(createMovieRequest), HttpStatus.CREATED);

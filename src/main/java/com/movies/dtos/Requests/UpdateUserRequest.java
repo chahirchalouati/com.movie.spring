@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * @author Chahir Chalouati
  */
@@ -19,14 +20,14 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 public class UpdateUserRequest {
-    private String id;
-    @UniqueUserName(isUpdate=true)
-    @NotBlank(message = "userName can't be blank")
-    private String userName;
     @NotBlank(message = "firstName can't be blank")
     public String firstName;
     @NotBlank(message = "lastName can't be blank")
     public String lastName;
+    private String id;
+    @UniqueUserName(isUpdate = true)
+    @NotBlank(message = "userName can't be blank")
+    private String userName;
     @PasswordValidation(message = MessageUtils.PASSWORD_ERROR)
     private String password;
     @NotEmptyList

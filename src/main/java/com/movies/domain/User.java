@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * @author Chahir Chalouati
  */
@@ -20,8 +21,13 @@ import java.util.Set;
 @Data
 @Document(collection = User.COLLECTION_NAME)
 @Setter(AccessLevel.NONE)
+@Builder
 public class User {
     public static final String COLLECTION_NAME = "users";
+    @NotBlank(message = "firstName can't be blank")
+    public String firstName;
+    @NotBlank(message = "lastName can't be blank")
+    public String lastName;
     @Id
     private String id;
     @NotBlank(message = "userName can't be blank")
@@ -31,13 +37,12 @@ public class User {
     @JsonIgnore
     private String password;
     private Set<Role> roles = new HashSet<>();
-    @NotBlank(message = "firstName can't be blank")
-    public String firstName;
-    @NotBlank(message = "lastName can't be blank")
-    public String lastName;
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private LocalDateTime createdAt;
+
+
+    private Profile profile;
 
     public String getFullName() {
         return String.format("%s %s", this.getFirstName(), this.getLastName());

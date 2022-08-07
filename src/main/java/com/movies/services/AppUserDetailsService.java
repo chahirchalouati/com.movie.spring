@@ -11,4 +11,5 @@ public interface AppUserDetailsService extends UserDetailsService {
 
     User setUser(User user);
 
+    String getSuperUser();
 }

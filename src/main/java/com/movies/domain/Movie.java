@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotBlank;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,13 +42,13 @@ public class Movie {
     private String path;
     private String downloadUrl;
     // TODO: 2/9/2022 add logic in movie mapper
-    private String duration;
+    private Duration duration;
     private String genre;
     private LocalDateTime inCinema;
     private boolean isExclusive = false;
 
 
-    private Set<Person> actors = new HashSet<>();
+    private Set<User> actors = new HashSet<>();
     private Set<Like> likes = new HashSet<>();
     private Set<Comment> comments = new HashSet<>();
 

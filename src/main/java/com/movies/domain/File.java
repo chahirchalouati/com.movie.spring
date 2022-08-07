@@ -17,19 +17,14 @@ import java.time.LocalDateTime;
 @Setter(AccessLevel.NONE)
 public class File {
     public static final String COLLECTION_NAME = "files";
-
-    public enum FileType {VIDEO, OTHER, IMAGE}
-
     private String id;
     private String name;
     private String path;
     private String downloadUrl;
     private FileType type;
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     @CreatedDate
     private LocalDateTime createdAt;
-
 
     public File setId(String id) {
         this.id = id;
@@ -55,4 +50,6 @@ public class File {
         this.type = type;
         return this;
     }
+
+    public enum FileType {VIDEO, OTHER, IMAGE}
 }

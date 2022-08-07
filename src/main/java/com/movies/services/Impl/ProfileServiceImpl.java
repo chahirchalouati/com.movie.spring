@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class ProfileServiceImpl implements ProfileService {
 
+    private static final String DEFAULT_AVATAR = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
     /**
      * @implNote nobody has the right to delete any profile
      * so  deleting logic should not be implemented
@@ -33,7 +34,6 @@ public class ProfileServiceImpl implements ProfileService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final StorageService storageService;
-    private static final String DEFAULT_AVATAR = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
     @Transactional(readOnly = true)
     @Override

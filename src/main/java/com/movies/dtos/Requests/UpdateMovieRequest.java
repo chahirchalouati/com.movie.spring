@@ -2,7 +2,7 @@ package com.movies.dtos.Requests;
 
 import com.movies.domain.Comment;
 import com.movies.domain.Like;
-import com.movies.domain.Person;
+import com.movies.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +33,7 @@ public class UpdateMovieRequest {
     private MultipartFile file;
     @NotNull(message = "thumbnails can't be null")
     private MultipartFile thumbnails;
-    private Set<Person> actors;
+    private Set<User> actors;
     private Set<Like> likes;
     private Set<Comment> comments;
 

@@ -8,16 +8,15 @@ package com.movies.configuration.properties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.Set;
+
 /**
  * @author Chahir Chalouati
  */
-@ConfigurationProperties(prefix = "security")
+@ConfigurationProperties(prefix = "roles")
 @Data
-public class SecurityProps {
-    private String secret;
-    private Integer expirationTime;
-    private String tokenPrefix;
-    private String authorizationHeader;
-    private String issuer;
-    private String adminSecret;
+public class RoleProps {
+    private Set<String> userRoles;
+    private Set<String> adminRoles;
+
 }

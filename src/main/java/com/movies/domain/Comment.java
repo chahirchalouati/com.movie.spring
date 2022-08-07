@@ -1,14 +1,18 @@
 package com.movies.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
 /**
  * @author Chahir Chalouati
  */
@@ -24,6 +28,8 @@ public class Comment {
     private String comment;
     @NotNull
     private User commentCreator;
-
+    @CreatedDate
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
+    private LocalDateTime createdAt;
 
 }

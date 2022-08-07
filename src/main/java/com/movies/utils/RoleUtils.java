@@ -1,9 +1,10 @@
 package com.movies.utils;
+
 /**
  * @author Chahir Chalouati
  */
 public class RoleUtils {
-   public static final String[] DEFAULT_USER_ROLES = {
+    public static final String[] DEFAULT_USER_ROLES = {
             "ROLE_USER",
             "CREATE_USER_MOVIE",
             "UPDATE_USER_MOVIE",

@@ -1,4 +1,5 @@
 package com.movies.controllers;
+
 import com.movies.services.StorageService;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -19,7 +20,7 @@ public class FilesRestController {
 
     @SneakyThrows
     @GetMapping(value = "/{filename:.+}")
-    public ResponseEntity<?> files(@PathVariable(name = "filename") String filename,  HttpServletRequest request) {
+    public ResponseEntity<?> files(@PathVariable(name = "filename") String filename, HttpServletRequest request) {
         return storageService.getFile(filename, request);
     }
 }

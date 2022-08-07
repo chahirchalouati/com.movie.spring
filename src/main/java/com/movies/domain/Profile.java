@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -26,7 +27,7 @@ public class Profile {
 
     @NotBlank(message = "user_id can't be blank")
     @Field(name = "user_id")
-    @Indexed(unique = true)
+    @Indexed(background = true, direction = IndexDirection.ASCENDING)
     private String userId;
 
     @NotBlank(message = "user_avatar can't be blank")

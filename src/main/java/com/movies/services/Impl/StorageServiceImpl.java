@@ -34,10 +34,10 @@ import static com.movies.utils.FileUtils.SLASH;
 @Profile("prod")
 @Slf4j
 public class StorageServiceImpl implements StorageService {
-    @Value("${file.storage.dir}")
-    private String dir;
     private final FileRepository fileRepository;
     private final ResourceLoader resourceLoader;
+    @Value("${file.storage.dir}")
+    private String dir;
 
     public StorageServiceImpl(FileRepository fileRepository, ResourceLoader resourceLoader) {
         this.fileRepository = fileRepository;

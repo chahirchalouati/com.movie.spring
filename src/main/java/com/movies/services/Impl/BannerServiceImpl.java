@@ -29,6 +29,10 @@ public class BannerServiceImpl implements BannerService {
     private final StorageService storageService;
     private final MongoTemplate mongoTemplate;
 
+    private static void bannerNotFound() {
+        throw new EntityNotFoundException("banner not found");
+    }
+
     @Override
     public List<Banner> getBanners(int limit) {
         Query query = new Query();
@@ -51,10 +55,6 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public void delete(String id) {
         fileRepository.findById(id).ifPresentOrElse(fileRepository::delete, BannerServiceImpl::bannerNotFound);
-    }
-
-    private static void bannerNotFound() {
-        throw new EntityNotFoundException("banner not found");
     }
 
     private Criteria filterByType(File.FileType type) {
