@@ -3,15 +3,14 @@ package com.movies.dtos.Responses;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.movies.domain.Comment;
 import com.movies.domain.Like;
-import com.movies.domain.Person;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -24,9 +23,15 @@ public class MovieResponse {
     private String code;
     private String thumbnails;
     private String downloadUrl;
-    private Set<Person> actors = new HashSet<>();
+    @Getter(AccessLevel.NONE)
+    private Set<UserResponse> actors = new HashSet<>();
     private Set<Like> likes = new HashSet<>();
     private Set<Comment> comments = new HashSet<>();
+    private Map<String, Object> actions = new HashMap<>();
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private LocalDateTime createdAt;
+
+    public Set<UserResponse> getActors() {
+        return actors.stream().peek(userResponse -> userResponse.setRoles(null)).collect(Collectors.toSet());
+    }
 }

@@ -13,4 +13,6 @@ public interface MovieRepository extends MongoRepository<Movie, String> {
     Optional<Movie> findByTitle(String title);
 
     Set<Movie> findByActors_FullName(String fullName);
+
+    Optional<Movie> findByCode(Integer code);
 }

@@ -3,19 +3,18 @@ package com.movies.migrations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Service;
 
-@Configuration
+import java.util.List;
+
+@Service
 @RequiredArgsConstructor
 public class InitMigrations implements CommandLineRunner {
-    private final RoleMigrator roleMigrator;
-    private final UserMigrator userMigrator;
-    private final MovieMigrator movieMigrator;
+    private final List<Migration> migrations;
 
     @Override
     public void run(String... args) {
-        this.roleMigrator.migrate();
-        this.userMigrator.migrate();
-        this.movieMigrator.migrate();
+        migrations.forEach(Migration::migrate);
 
     }
 }

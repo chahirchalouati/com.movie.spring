@@ -21,4 +21,6 @@ public interface MovieService {
     boolean deleteByTitle(String title);
 
     Page<MovieResponse> findAll(Pageable pageable);
+
+    MovieResponse getByCode(Integer code);
 }

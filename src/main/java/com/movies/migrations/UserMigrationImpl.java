@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("userMigrator")
 @RequiredArgsConstructor
 @Slf4j
-public class UserMigrator implements Migration {
+public class UserMigrationImpl implements Migration {
 
     private final UserService userService;
     private final UserRepository userRepository;

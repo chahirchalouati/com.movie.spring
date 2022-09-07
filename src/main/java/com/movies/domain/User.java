@@ -37,6 +37,9 @@ public class User {
     @JsonIgnore
     private String password;
     private Set<Role> roles = new HashSet<>();
+
+    @Indexed
+    private String avatar;
     @CreatedDate
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:SS")
     private LocalDateTime createdAt;

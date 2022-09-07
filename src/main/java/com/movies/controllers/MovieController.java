@@ -32,6 +32,11 @@ public class MovieController {
         return ResponseEntity.ok(this.movieService.getOne(id));
     }
 
+    @GetMapping("/code/{code}")
+    public ResponseEntity<?> findCode(@PathVariable("code") Integer code) {
+        return ResponseEntity.ok(this.movieService.getByCode(code));
+    }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> add(@Valid CreateMovieRequest createMovieRequest) {
         return new ResponseEntity<>(this.movieService.add(createMovieRequest), HttpStatus.CREATED);

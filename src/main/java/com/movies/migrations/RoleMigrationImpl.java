@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component("roleMigrator")
 @RequiredArgsConstructor
 @Slf4j
-public class RoleMigrator implements Migration {
+public class RoleMigrationImpl implements Migration {
     private final RoleProps roleProps;
     private final RoleRepository roleRepository;
 

@@ -89,6 +89,11 @@ public class MovieServiceImpl implements MovieService {
         return new PageImpl<>(movieResponses, pageable, page.getTotalElements());
     }
 
+    @Override
+    public MovieResponse getByCode(Integer code) {
+        return this.movieMapper.mapToMovieResponse(this.movieRepository.findByCode(code).orElseThrow(() -> new EntityNotFoundException("movie not found")));
+    }
+
     private Function<Movie, Movie> handleMovieUpdate(UpdateMovieRequest updateMovieRequest) {
         return movie -> {
             final File file = this.storageService.store(updateMovieRequest.getFile());
